@@ -1,7 +1,6 @@
 COMPILER = gcc
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:./injector
 
 all: *
-	export LD_LIBRARY_PATH=./injector
-
 	cd injector && make && cd ..
-	$(COMPILER) -I./injector/ -L./injector -linjector main.c -o output
+	$(COMPILER) -I./injector/ -L./injector -linjector -Wl,-rpath,'$$ORIGIN/injector' main.c -o output
